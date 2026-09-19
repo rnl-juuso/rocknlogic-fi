@@ -107,9 +107,11 @@
     letter-spacing:0.02em;padding-left:10px;margin-left:2px;
     border-left:1px solid var(--border);
   }
+  .tagline-break{display:none;}
   @media (max-width:640px){
     .logo{flex-direction:column;align-items:flex-start;gap:1px;}
     .tagline{padding-left:0;margin-left:0;border-left:none;}
+    .tagline-break{display:inline;}
   }
   nav a{
     position:relative;
@@ -341,7 +343,6 @@
   }
   @media (max-width:560px){
     nav a{margin-left:14px;font-size:0.72rem;}
-    nav a.nav-prosessi, nav a.nav-meista{display:none;}
     .contact-card{flex-direction:column;align-items:flex-start;}
     section{padding:52px 0;}
     .hero{padding:60px 0 48px;}
@@ -356,7 +357,7 @@
   <div class="wrap">
     <a class="logo" href="#">
       <span class="logo-mark metal">R'nL</span>
-      <span class="tagline">Less magic. More logic.</span>
+      <span class="tagline">Less magic.<br class="tagline-break"> More logic.</span>
     </a>
     <nav aria-label="Päävalikko">
       <a href="#palvelut">Palvelut</a>
