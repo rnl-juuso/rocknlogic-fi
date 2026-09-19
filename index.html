@@ -108,7 +108,8 @@
     border-left:1px solid var(--border);
   }
   @media (max-width:640px){
-    .tagline{display:none;}
+    .logo{flex-direction:column;align-items:flex-start;gap:1px;}
+    .tagline{padding-left:0;margin-left:0;border-left:none;}
   }
   nav a{
     position:relative;
@@ -259,7 +260,7 @@
   .inline-cta{
     display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;
     background:var(--card);border:1px solid var(--accent-dim);
-    padding:28px 32px;margin-top:1px;
+    padding:28px 32px;margin-top:32px;
   }
   .inline-cta h3{margin:0 0 6px;font-size:1.05rem;font-weight:800;letter-spacing:0.005em;}
   .inline-cta p{margin:0;color:var(--text-dim);font-size:0.92rem;}
