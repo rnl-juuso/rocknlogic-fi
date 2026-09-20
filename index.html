@@ -349,6 +349,33 @@
   }
 </style>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="42bd64be-528b-48d9-8e58-5ce0d96f5cec"></script>
+<script>
+(function () {
+  var rajat = [25, 50, 75, 100];
+  var lahetetyt = {};
+
+  function tarkista() {
+    var korkeus = document.body.scrollHeight - window.innerHeight;
+    if (korkeus <= 0) return;
+    var osuus = Math.round((window.scrollY / korkeus) * 100);
+
+    rajat.forEach(function (raja) {
+      if (osuus >= raja && !lahetetyt[raja]) {
+        lahetetyt[raja] = true;
+        if (typeof umami !== 'undefined') {
+          umami.track('vieritys', { syvyys: raja });
+        }
+      }
+    });
+  }
+
+  var ajastin;
+  window.addEventListener('scroll', function () {
+    clearTimeout(ajastin);
+    ajastin = setTimeout(tarkista, 200);
+  }, { passive: true });
+})();
+</script>
 </head>
 <body>
 
@@ -381,8 +408,8 @@
         Rock'n Logic toteuttaa integraatiot, ohjelmoinnin ja Niagara-käyttöönotot yhdeltä
         toimittajalta. Selkeä toimitussisältö, sovittu aikataulu ja dokumentoitu lopputulos.
       </p>
-      <a class="btn" href="#yhteystiedot">Ota yhteyttä</a>
-      <a class="btn-outline hero-secondary" href="#palvelut">Katso palvelut</a>
+      <a class="btn" href="#yhteystiedot" data-umami-event="ota-yhteytta" data-umami-event-sijainti="hero">Ota yhteyttä</a>
+      <a class="btn-outline hero-secondary" href="#palvelut" data-umami-event="katso-palvelut" data-umami-event-sijainti="hero">Katso palvelut</a>
     </div>
   </div>
 </section>
@@ -405,7 +432,7 @@
       <div class="card reveal" style="transition-delay:.16s">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h5l2-6 4 12 2-6h5"/></svg></div>
         <h3>Laiteliitynnät</h3>
-        <p>Laitteet osaksi automaatiojärjestelmää M-Bus-, Modbus-, BACnet- ja LoRaWAN-rajapinnoilla.</p>
+        <p>Laitteet osaksi automaatiojärjestelmää M‑Bus-, Modbus-, BACnet- ja LoRaWAN-rajapinnoilla.</p>
       </div>
       <div class="card reveal" style="transition-delay:.24s">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12l5 5L20 6"/></svg></div>
@@ -416,7 +443,7 @@
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M10 18h4"/></svg></div>
         <div>
           <h3>RnL Control Panel -laitteisto</h3>
-          <p>Oma kosketuspaneeli-PC rakennusautomaatioon: laite ja integraatio samalta toimittajalta nopeuttavat käyttöönottoa. <a href="#paneelipc">Tutustu tuotteeseen →</a></p>
+          <p>Oma kosketuspaneeli-PC rakennusautomaatioon: laite ja integraatio samalta toimittajalta nopeuttavat käyttöönottoa. <a href="#paneelipc" data-umami-event="control-panel-kiinnostus" data-umami-event-sijainti="palvelut-kortti">Tutustu tuotteeseen →</a></p>
         </div>
       </div>
     </div>
@@ -425,7 +452,7 @@
         <h3>Onko mielessä integraatio tai automaatioprojekti?</h3>
         <p>Kerro lyhyesti kohteesta tai tarpeesta, niin katsotaan sopiva toteutustapa.</p>
       </div>
-      <a class="btn" href="#yhteystiedot">Ota yhteyttä →</a>
+      <a class="btn" href="#yhteystiedot" data-umami-event="ota-yhteytta" data-umami-event-sijainti="palvelut-cta">Ota yhteyttä →</a>
     </div>
   </div>
 </section>
@@ -446,7 +473,7 @@
           <li>Sopii yleisimpiin automaatiojärjestelmiin</li>
           <li>Suomalainen toimittaja ja tuki</li>
         </ul>
-        <a class="btn-outline" href="#yhteystiedot">Kysy lisää</a>
+        <a class="btn-outline" href="#yhteystiedot" data-umami-event="control-panel-kiinnostus" data-umami-event-sijainti="tuote-osio">Kysy lisää</a>
       </div>
       <div class="product-visual"><span>RnL Control Panel</span></div>
     </div>
@@ -510,11 +537,11 @@
     <div class="contact-card reveal">
       <div class="contact-item">
         <div class="label">Puhelin</div>
-        <div class="value"><a href="tel:+358404109997">040 410 9997</a></div>
+        <div class="value"><a href="tel:+358404109997" data-umami-event="yhteydenotto" data-umami-event-tyyppi="puhelin">040 410 9997</a></div>
       </div>
       <div class="contact-item">
         <div class="label">Sähköposti</div>
-        <div class="value"><a href="mailto:info@rocknlogic.fi">info@rocknlogic.fi</a></div>
+        <div class="value"><a href="mailto:info@rocknlogic.fi" data-umami-event="yhteydenotto" data-umami-event-tyyppi="sahkoposti">info@rocknlogic.fi</a></div>
       </div>
       <div class="contact-item">
         <div class="label">Y-tunnus</div>
