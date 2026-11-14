@@ -45,7 +45,7 @@
     <div class="hero-content">
       <p class="eyebrow">RnL Control Panel</p>
       <h1>Vikailmoitus ja tuki</h1>
-      <p class="lede">Kerro, miten voimme auttaa. Paneelin tunniste tulee mukaan automaattisesti, kun tulit tarran QR-koodista.</p>
+      <p class="lede">Kerro, miten voimme auttaa. Vastaamme sähköpostitse. Paneelin tunniste tulee mukaan automaattisesti, kun tulit tarran QR-koodista.</p>
     </div>
   </div>
 </section>
@@ -66,17 +66,14 @@
           <div class="form-field"><label for="f-name">Nimi</label><input type="text" id="f-name" name="name" required></div>
           <div class="form-field"><label for="f-email">Sähköposti</label><input type="email" id="f-email" name="email" required></div>
         </div>
-        <div class="form-row">
-          <div class="form-field"><label for="f-phone">Puhelin (vapaaehtoinen)</label><input type="tel" id="f-phone" name="phone"></div>
-          <div class="form-field"><label for="f-site">Kohde tai osoite (vapaaehtoinen)</label><input type="text" id="f-site" name="site"></div>
-        </div>
+        <div class="form-field"><label for="f-site">Kohde tai osoite (vapaaehtoinen)</label><input type="text" id="f-site" name="site"></div>
         <div class="form-field"><label for="f-message">Viesti</label><textarea id="f-message" name="message" rows="5" required placeholder="Mitä tapahtui ja milloin? Mitä näytöllä näkyy?"></textarea></div>
         <button type="submit" class="btn">Lähetä</button>
         <p class="form-status" aria-live="polite"></p>
         <p class="form-privacy">Tietojasi käytetään vain yhteydenottoosi vastaamiseen, ei markkinointiin.</p>
       </form>
-      <p class="huom">Viestit käsitellään arkisin. Kiireellisissä kiinteistön vioissa ota yhteys kohteen kiinteistöhuoltoon.
-        Asennus- ja käyttöohje: <a href="/kayttoonotto">rocknlogic.fi/kayttoonotto</a>. Puhelin 040 410 9997, info@rocknlogic.fi.</p>
+      <p class="huom">Vastaamme sähköpostitse, ja viestit käsitellään arkisin. Kiireellisissä kiinteistön vioissa ota yhteys kohteen
+        kiinteistöhuoltoon. Asennus- ja käyttöohje: <a href="/kayttoonotto">rocknlogic.fi/kayttoonotto</a>.</p>
     </div>
   </div>
 </section>
@@ -110,9 +107,9 @@
     var b=form.querySelector('button[type="submit"]'); b.disabled=true;
     statusEl.textContent='Lähetetään...'; statusEl.className='form-status';
     fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}}).then(function(r){
-      if(r.ok){statusEl.textContent='Kiitos! Viesti on vastaanotettu, ja palaamme asiaan mahdollisimman pian.';statusEl.className='form-status ok';form.reset();aihe();if(id)document.getElementById('f-laite').value=id;}
-      else{statusEl.textContent='Lähetys epäonnistui. Kokeile hetken päästä uudelleen tai soita 040 410 9997.';statusEl.className='form-status err';}
-    }).catch(function(){statusEl.textContent='Lähetys epäonnistui. Kokeile hetken päästä uudelleen tai soita 040 410 9997.';statusEl.className='form-status err';})
+      if(r.ok){statusEl.textContent='Kiitos! Viesti on vastaanotettu, ja vastaamme sähköpostitse mahdollisimman pian.';statusEl.className='form-status ok';form.reset();aihe();if(id)document.getElementById('f-laite').value=id;}
+      else{statusEl.textContent='Lähetys epäonnistui. Kokeile hetken päästä uudelleen tai lähetä sähköpostia: info@rocknlogic.fi.';statusEl.className='form-status err';}
+    }).catch(function(){statusEl.textContent='Lähetys epäonnistui. Kokeile hetken päästä uudelleen tai lähetä sähköpostia: info@rocknlogic.fi.';statusEl.className='form-status err';})
     .finally(function(){b.disabled=false;});
   });
 </script>
