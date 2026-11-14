@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="fi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RnL Control Panel: vikailmoitus ja tuki | Rock'n Logic</title>
+<meta name="description" content="RnL Control Panel -paneelin vikailmoitus, käyttöapu ja yhteydenotto. Paneelin tarran QR-koodi tuo tänne laitteen tunnisteen kanssa.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://rocknlogic.fi/huolto">
+<meta name="theme-color" content="#0a0c0f">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/rnl.css">
+<style>
+  .valinnat{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin:6px 0 30px;}
+  .valinta{display:block;padding:16px 18px;border:1px solid var(--border);background:var(--card);cursor:pointer;}
+  .valinta input{margin-right:10px;accent-color:var(--accent);}
+  .valinta strong{color:var(--text);}
+  .valinta span{display:block;color:var(--text-dim);font-size:.9rem;margin-top:4px;}
+  .valinta:has(input:checked){border-color:var(--accent);}
+  .laite{display:inline-block;padding:6px 12px;border:1px solid var(--accent-dim);color:var(--accent);font-weight:700;letter-spacing:.06em;margin:0 0 22px;}
+  .huom{color:var(--text-dim);font-size:.9rem;margin:18px 0 0;}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Siirry sisältöön</a>
+<header>
+  <div class="wrap">
+    <a class="logo" href="/">
+      <span class="logo-mark metal">R'nL</span>
+      <span class="tagline">Less magic.<br class="tagline-break"> More logic.</span>
+    </a>
+    <nav aria-label="Päävalikko">
+      <a href="/#palvelut">Palvelut</a>
+      <a href="/#paneelipc" class="nav-cp">Control Panel</a>
+      <a href="/#meista" class="nav-meista">Meistä</a>
+      <a href="/#yhteystiedot">Yhteystiedot</a>
+    </nav>
+  </div>
+</header>
+<main id="main-content">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-content">
+      <p class="eyebrow">RnL Control Panel</p>
+      <h1>Vikailmoitus ja tuki</h1>
+      <p class="lede">Kerro, miten voimme auttaa. Paneelin tunniste tulee mukaan automaattisesti, kun tulit tarran QR-koodista.</p>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="prose">
+      <p class="laite" id="laite-naytto" hidden>Paneeli: <span id="laite-id"></span></p>
+      <form id="huolto-form" class="contact-form" action="https://formspree.io/f/xjykgkld" method="POST">
+        <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off">
+        <input type="hidden" name="_subject" id="f-subject" value="RnL Control Panel: yhteydenotto">
+        <input type="hidden" name="laite_id" id="f-laite">
+        <div class="valinnat" role="radiogroup" aria-label="Mihin asia liittyy">
+          <label class="valinta"><input type="radio" name="topic" value="Vikailmoitus" checked><strong>Vikailmoitus</strong><span>Paneeli tai järjestelmä ei toimi oikein.</span></label>
+          <label class="valinta"><input type="radio" name="topic" value="Käyttöapu"><strong>Käyttöapu</strong><span>Kysymys paneelin käytöstä tai asetuksista.</span></label>
+          <label class="valinta"><input type="radio" name="topic" value="Kiinnostus RnL Control Paneliin"><strong>Kiinnostaa paneeli</strong><span>Haluan tarjouksen tai lisätietoa omaan kohteeseen.</span></label>
+        </div>
+        <div class="form-row">
+          <div class="form-field"><label for="f-name">Nimi</label><input type="text" id="f-name" name="name" required></div>
+          <div class="form-field"><label for="f-email">Sähköposti</label><input type="email" id="f-email" name="email" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field"><label for="f-phone">Puhelin (vapaaehtoinen)</label><input type="tel" id="f-phone" name="phone"></div>
+          <div class="form-field"><label for="f-site">Kohde tai osoite (vapaaehtoinen)</label><input type="text" id="f-site" name="site"></div>
+        </div>
+        <div class="form-field"><label for="f-message">Viesti</label><textarea id="f-message" name="message" rows="5" required placeholder="Mitä tapahtui ja milloin? Mitä näytöllä näkyy?"></textarea></div>
+        <button type="submit" class="btn">Lähetä</button>
+        <p class="form-status" aria-live="polite"></p>
+        <p class="form-privacy">Tietojasi käytetään vain yhteydenottoosi vastaamiseen, ei markkinointiin.</p>
+      </form>
+      <p class="huom">Viestit käsitellään arkisin. Kiireellisissä kiinteistön vioissa ota yhteys kohteen kiinteistöhuoltoon.
+        Asennus- ja käyttöohje: <a href="/kayttoonotto">rocknlogic.fi/kayttoonotto</a>. Puhelin 040 410 9997, info@rocknlogic.fi.</p>
+    </div>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <span class="logo-mark metal footer-mark">R'nL</span>
+    <span>© 2026 Rock'n Logic Oy · Y-tunnus 3608997-5</span>
+  </div>
+</footer>
+<script>
+  var header=document.querySelector('header');
+  window.addEventListener('scroll',function(){header.classList.toggle('scrolled',window.scrollY>8);},{passive:true});
+  // Laitteen tunniste QR-koodin osoitteesta (?id=...). Vain kirjaimet, numerot ja väliviiva hyväksytään.
+  var id=(new URLSearchParams(location.search).get('id')||'').replace(/[^A-Za-z0-9-]/g,'').slice(0,40);
+  var form=document.getElementById('huolto-form');
+  function aihe(){
+    var t=form.querySelector('input[name="topic"]:checked').value;
+    document.getElementById('f-subject').value='RnL Control Panel: '+t+(id?' ('+id+')':'');
+  }
+  if(id){
+    document.getElementById('laite-id').textContent=id;
+    document.getElementById('laite-naytto').hidden=false;
+    document.getElementById('f-laite').value=id;
+  }
+  form.querySelectorAll('input[name="topic"]').forEach(function(r){r.addEventListener('change',aihe);});
+  aihe();
+  var statusEl=form.querySelector('.form-status');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var b=form.querySelector('button[type="submit"]'); b.disabled=true;
+    statusEl.textContent='Lähetetään...'; statusEl.className='form-status';
+    fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}}).then(function(r){
+      if(r.ok){statusEl.textContent='Kiitos! Viesti on vastaanotettu, ja palaamme asiaan mahdollisimman pian.';statusEl.className='form-status ok';form.reset();aihe();if(id)document.getElementById('f-laite').value=id;}
+      else{statusEl.textContent='Lähetys epäonnistui. Kokeile hetken päästä uudelleen tai soita 040 410 9997.';statusEl.className='form-status err';}
+    }).catch(function(){statusEl.textContent='Lähetys epäonnistui. Kokeile hetken päästä uudelleen tai soita 040 410 9997.';statusEl.className='form-status err';})
+    .finally(function(){b.disabled=false;});
+  });
+</script>
+</body>
+</html>
