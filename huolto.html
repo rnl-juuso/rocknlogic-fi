@@ -19,7 +19,7 @@
   .valinta strong{color:var(--text);}
   .valinta span{display:block;color:var(--text-dim);font-size:.9rem;margin-top:4px;}
   .valinta:has(input:checked){border-color:var(--accent);}
-  .laite{display:inline-block;padding:6px 12px;border:1px solid var(--accent-dim);color:var(--accent);font-weight:700;letter-spacing:.06em;margin:0 0 22px;}
+  #f-laite[readonly]{color:var(--accent);font-weight:700;letter-spacing:.06em;}
   .huom{color:var(--text-dim);font-size:.9rem;margin:18px 0 0;}
 </style>
 </head>
@@ -45,18 +45,16 @@
     <div class="hero-content">
       <p class="eyebrow">RnL Control Panel</p>
       <h1>Vikailmoitus ja tuki</h1>
-      <p class="lede">Kerro, miten voimme auttaa. Vastaamme sähköpostitse. Paneelin tunniste tulee mukaan automaattisesti, kun tulit tarran QR-koodista.</p>
+      <p class="lede">Kerro, miten voimme auttaa. Vastaamme sähköpostitse. Paneelin ID löytyy paneelin kyljen tarrasta, ja se täyttyy automaattisesti, kun tulet tarran QR-koodista.</p>
     </div>
   </div>
 </section>
 <section>
   <div class="wrap">
     <div class="prose">
-      <p class="laite" id="laite-naytto" hidden>Paneeli: <span id="laite-id"></span></p>
       <form id="huolto-form" class="contact-form" action="https://formspree.io/f/xjykgkld" method="POST">
         <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off">
         <input type="hidden" name="_subject" id="f-subject" value="RnL Control Panel: yhteydenotto">
-        <input type="hidden" name="laite_id" id="f-laite">
         <div class="valinnat" role="radiogroup" aria-label="Mihin asia liittyy">
           <label class="valinta"><input type="radio" name="topic" value="Vikailmoitus" checked><strong>Vikailmoitus</strong><span>Paneeli tai järjestelmä ei toimi oikein.</span></label>
           <label class="valinta"><input type="radio" name="topic" value="Käyttöapu"><strong>Käyttöapu</strong><span>Kysymys paneelin käytöstä tai asetuksista.</span></label>
@@ -66,7 +64,10 @@
           <div class="form-field"><label for="f-name">Nimi</label><input type="text" id="f-name" name="name" required></div>
           <div class="form-field"><label for="f-email">Sähköposti</label><input type="email" id="f-email" name="email" required></div>
         </div>
-        <div class="form-field"><label for="f-site">Kohde tai osoite (vapaaehtoinen)</label><input type="text" id="f-site" name="site"></div>
+        <div class="form-row">
+          <div class="form-field"><label for="f-laite">Paneelin ID</label><input type="text" id="f-laite" name="laite_id" maxlength="40" placeholder="Paneelin kyljen tarrasta" autocomplete="off"></div>
+          <div class="form-field"><label for="f-site">Kohde tai osoite (vapaaehtoinen)</label><input type="text" id="f-site" name="site"></div>
+        </div>
         <div class="form-field"><label for="f-message">Viesti</label><textarea id="f-message" name="message" rows="5" required placeholder="Mitä tapahtui ja milloin? Mitä näytöllä näkyy?"></textarea></div>
         <button type="submit" class="btn">Lähetä</button>
         <p class="form-status" aria-live="polite"></p>
@@ -94,11 +95,9 @@
     var t=form.querySelector('input[name="topic"]:checked').value;
     document.getElementById('f-subject').value='RnL Control Panel: '+t+(id?' ('+id+')':'');
   }
-  if(id){
-    document.getElementById('laite-id').textContent=id;
-    document.getElementById('laite-naytto').hidden=false;
-    document.getElementById('f-laite').value=id;
-  }
+  var laite=document.getElementById('f-laite');
+  if(id){ laite.value=id; laite.readOnly=true; }
+  laite.addEventListener('input',function(){ laite.value=laite.value.replace(/[^A-Za-z0-9-]/g,'').toUpperCase(); id=laite.value; aihe(); });
   form.querySelectorAll('input[name="topic"]').forEach(function(r){r.addEventListener('change',aihe);});
   aihe();
   var statusEl=form.querySelector('.form-status');
@@ -107,7 +106,7 @@
     var b=form.querySelector('button[type="submit"]'); b.disabled=true;
     statusEl.textContent='Lähetetään...'; statusEl.className='form-status';
     fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}}).then(function(r){
-      if(r.ok){statusEl.textContent='Kiitos! Viesti on vastaanotettu, ja vastaamme sähköpostitse mahdollisimman pian.';statusEl.className='form-status ok';form.reset();aihe();if(id)document.getElementById('f-laite').value=id;}
+      if(r.ok){statusEl.textContent='Kiitos! Viesti on vastaanotettu, ja vastaamme sähköpostitse mahdollisimman pian.';statusEl.className='form-status ok';var pid=id;form.reset();if(pid){laite.value=pid;id=pid;}aihe();}
       else{statusEl.textContent='Lähetys epäonnistui. Kokeile hetken päästä uudelleen tai lähetä sähköpostia: info@rocknlogic.fi.';statusEl.className='form-status err';}
     }).catch(function(){statusEl.textContent='Lähetys epäonnistui. Kokeile hetken päästä uudelleen tai lähetä sähköpostia: info@rocknlogic.fi.';statusEl.className='form-status err';})
     .finally(function(){b.disabled=false;});
