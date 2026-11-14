@@ -65,7 +65,7 @@
           <div class="form-field"><label for="f-email">Sähköposti</label><input type="email" id="f-email" name="email" required></div>
         </div>
         <div class="form-row">
-          <div class="form-field" id="laite-kentta"><label for="f-laite">Paneelin ID</label><input type="text" id="f-laite" name="laite_id" maxlength="40" placeholder="Paneelin kyljen tarrasta" autocomplete="off"></div>
+          <div class="form-field" id="laite-kentta"><label for="f-laite" id="laite-label">Paneelin ID</label><input type="text" id="f-laite" name="laite_id" maxlength="40" placeholder="Paneelin kyljen tarrasta" autocomplete="off"></div>
           <div class="form-field"><label for="f-site">Kohde tai osoite (vapaaehtoinen)</label><input type="text" id="f-site" name="site"></div>
         </div>
         <div class="form-field"><label for="f-message">Viesti</label><textarea id="f-message" name="message" rows="5" required placeholder="Mitä tapahtui ja milloin? Mitä näytöllä näkyy?"></textarea></div>
@@ -97,6 +97,9 @@
     var k=document.getElementById('laite-kentta'), l=document.getElementById('f-laite');
     k.style.display=kiinnostus?'none':'';
     l.disabled=kiinnostus;   // ei lähetetä ID:tä myyntikyselyssä
+    var vika=(t==='Vikailmoitus');
+    l.required=vika;          // pakollinen vain vikailmoituksessa
+    document.getElementById('laite-label').textContent = vika ? 'Paneelin ID' : 'Paneelin ID (vapaaehtoinen)';
     document.getElementById('f-message').placeholder = kiinnostus ? 'Kerro kohteesta ja tarpeesta: montako paneelia, mihin järjestelmiin?'
       : (t==='Käyttöapu' ? 'Mitä haluat tehdä paneelilla?' : 'Mitä tapahtui ja milloin? Mitä näytöllä näkyy?');
     document.getElementById('f-subject').value='RnL Control Panel: '+t+(!kiinnostus&&id?' ('+id+')':'');
