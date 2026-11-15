@@ -357,6 +357,24 @@
   .hero-kuvio-kevyt{opacity:.5;}
   .hero-content{max-width:640px;}
   @media (max-width:860px){.hero-kuvio{opacity:.22;} .hero-kuvio:not(.hero-kuvio-kevyt){display:none;}}
+
+  /* Brändielementit selaillessa (2026-11-15): logon muotokieli, johtimet ja solmut */
+  section:not(.hero){border-top:none;background:url(/rnl-erotin.svg) top center/1600px 24px no-repeat;}
+  section:not(.hero) > .wrap > h2{position:relative;padding-left:46px;}
+  section:not(.hero) > .wrap > h2::before{content:"";position:absolute;left:0;top:50%;width:31px;height:2px;
+    background:linear-gradient(90deg,transparent,var(--accent));}
+  section:not(.hero) > .wrap > h2::after{content:"";position:absolute;left:29px;top:50%;width:9px;height:9px;
+    margin-top:-3.5px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px rgba(143,180,217,.55);}
+  .card::before{content:"";position:absolute;left:0;top:0;height:2px;width:0;background:var(--accent);
+    transition:width .35s ease;}
+  .card::after{content:"";position:absolute;left:52px;top:-3px;width:8px;height:8px;border-radius:50%;
+    background:var(--accent);box-shadow:0 0 12px rgba(143,180,217,.7);opacity:0;transition:opacity .2s ease .25s;}
+  .card:hover::before{width:56px;}
+  .card:hover::after{opacity:1;}
+  .feature-list li::before{width:15px;height:8px;transform:none;
+    background:radial-gradient(circle at 11px 50%,var(--accent) 0 3px,transparent 3.6px),
+      linear-gradient(var(--accent-dim),var(--accent-dim)) left center/9px 1.5px no-repeat;}
+  @media (prefers-reduced-motion:reduce){.card::before,.card::after{transition:none;}}
 </style>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="42bd64be-528b-48d9-8e58-5ce0d96f5cec"></script>
 <script>
