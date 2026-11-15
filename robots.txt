@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /allekirjoitus
 
 Sitemap: https://rocknlogic.fi/sitemap.xml
-Disallow: /allekirjoitus
